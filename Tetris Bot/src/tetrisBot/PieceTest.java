@@ -75,38 +75,38 @@ public class PieceTest {
 		BufferedImage l = ImageIO.read(new File("l.jpg"));
 		avgRgb = testPiece.avgColor(l);
 		//System.out.println("l = " + avgRgb[0] + ", " + avgRgb[1] + ", " + avgRgb[2]);
-		testPiece.classify(avgRgb);
-
+		assertTrue("l".equals(testPiece.classify(avgRgb).getShape()));
 		
 		BufferedImage i = ImageIO.read(new File("i.jpg"));
 		avgRgb = testPiece.avgColor(i);
 		//System.out.println("i = " + avgRgb[0] + ", " + avgRgb[1] + ", " + avgRgb[2]);
-		testPiece.classify(avgRgb);
+		assertTrue("i".equals(testPiece.classify(avgRgb).getShape()));
 		
 		BufferedImage s = ImageIO.read(new File("s.jpg"));
 		avgRgb = testPiece.avgColor(s);
 		//System.out.println("s = " + avgRgb[0] + ", " + avgRgb[1] + ", " + avgRgb[2]);
-		testPiece.classify(avgRgb);
+		assertTrue("s".equals(testPiece.classify(avgRgb).getShape()));
+		
 		
 		BufferedImage seven = ImageIO.read(new File("7.jpg"));
 		avgRgb = testPiece.avgColor(seven);
 		//System.out.println("7 = " + avgRgb[0] + ", " + avgRgb[1] + ", " + avgRgb[2]);
-		testPiece.classify(avgRgb);
+		assertTrue("7".equals(testPiece.classify(avgRgb).getShape()));
 		
 		BufferedImage square = ImageIO.read(new File("square.jpg"));
 		avgRgb = testPiece.avgColor(square);
 		//System.out.println("square = " + avgRgb[0] + ", " + avgRgb[1] + ", " + avgRgb[2]);
-		testPiece.classify(avgRgb);
+		assertTrue("square".equals(testPiece.classify(avgRgb).getShape()));
 		
 		BufferedImage t = ImageIO.read(new File("t.jpg"));
 		avgRgb = testPiece.avgColor(t);
 		//System.out.println("t = " + avgRgb[0] + ", " + avgRgb[1] + ", " + avgRgb[2]);
-		testPiece.classify(avgRgb);
+		assertTrue("t".equals(testPiece.classify(avgRgb).getShape()));
 		
 		BufferedImage z = ImageIO.read(new File("z.jpg"));
 		avgRgb = testPiece.avgColor(z);
 		//System.out.println("z = " + avgRgb[0] + ", " + avgRgb[1] + ", " + avgRgb[2]);
-		testPiece.classify(avgRgb);
+		assertTrue("z".equals(testPiece.classify(avgRgb).getShape()));
 	}
 
 }

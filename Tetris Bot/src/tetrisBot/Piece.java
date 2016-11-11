@@ -15,6 +15,11 @@ public class Piece {
 	public String shape; //the shape of piece
 	public int[][] space; //which spaces are occupied by the shape
 	
+	public String getShape(){
+		return shape;
+	}
+	
+	
 	public Piece(String s){
 		if (s.equals("l")){
 			shape = "l";
