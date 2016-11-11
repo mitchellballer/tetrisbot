@@ -15,7 +15,7 @@ public class TetrisBot {
 	private JFrame mFrame;
 	private JLabel runLabel;
 	private JPanel controlPanel;
-	//private JLabel stopLabel;
+	private JLabel stopLabel;
 	
 	public static void main(String args[]){
 		 TetrisBot tetrisBot = new TetrisBot();	
@@ -23,7 +23,6 @@ public class TetrisBot {
 	
 
 	 private void prepare(){
-		boolean cont = true;
 		mFrame = new JFrame("Tetris Bot");
 		mFrame.setSize(300, 300);
 		mFrame.setLayout(new GridLayout(3,1));
@@ -33,19 +32,21 @@ public class TetrisBot {
 			}        
 		});
 		controlPanel = new JPanel();
+		//controlPanel2 = new JPanel();
 		controlPanel.setLayout(new FlowLayout());
+		//controlPanel2.setLayout(new FlowLayout());
 		mFrame.add(controlPanel);
+		//mFrame.add(controlPanel2);
 		runLabel = new JLabel("",JLabel.CENTER);
-		//stopLabel = new JLabel("", JLabel.CENTER);
+		stopLabel = new JLabel("", JLabel.CENTER);
 		JButton run = new JButton("Run Bot");
-		//JButton stop = new JButton("Stop");
+		JButton stop = new JButton("Stop");
 		mFrame.add(runLabel);
-		//mFrame.add(stopLabel);
+		mFrame.add(stopLabel);
 		runLabel.setSize(300,100);
 		runLabel.setVisible(true);
-		//stopLabel.setVisible(true);
+		stopLabel.setVisible(true);
 		//stopLabel.setSize(300, 100);
-		//stop.setVisible(true);
 		mFrame.setVisible(true);
 		mFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
@@ -58,14 +59,14 @@ public class TetrisBot {
 			}
 			
 		});
-		/*
+		
 		stop.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				runBot.toggleCont();
 			}
 		});
-		*/
 		controlPanel.add(run);
+		controlPanel.add(stop);
 		  
 		  
 	 }

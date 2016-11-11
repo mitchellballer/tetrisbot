@@ -8,35 +8,15 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import javax.imageio.*;
 
-public class runBot {
+public class runBot implements Runnable{
 		
 	private Well well = new Well();
 	private static boolean cont;
 	
 	
 	public static void main(){
-		//click the start button
-		try {
-			click(370,598);
-		} catch (AWTException e){
-		}
-		//wait for game to start
-		try {
-			TimeUnit.SECONDS.sleep(9);
-		} catch (InterruptedException e) {
-		}
-		//while(cont){
-		
-		int count = 0;
-		while(count < 20){
-		evaluateNextPiece();
-		try {
-			TimeUnit.SECONDS.sleep(1);
-		} catch (InterruptedException e) {
-		}
-		count ++;
-		}
-		
+
+		(new Thread(new runBot())).start();
 		//System.out.println(nextPiece.shape);
 		
 	}
@@ -151,6 +131,33 @@ public class runBot {
 	
 	public boolean getCont(){
 		return cont;
+	}
+
+	@Override
+	public void run() {
+		//click the start button
+		try {
+			click(370,598);
+		} catch (AWTException e){
+		}
+		//wait for game to start
+		try {
+			TimeUnit.SECONDS.sleep(5);
+		} catch (InterruptedException e) {
+		}
+		//while(cont){
+		
+		int count = 0;
+		cont = true;
+		while(count < 40 && cont){
+		evaluateNextPiece();
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+		}
+		count ++;
+		}
+		
 	}
 	
 	
