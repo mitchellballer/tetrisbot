@@ -14,6 +14,7 @@ public class Piece {
 	public int y; //y dimension size
 	public String shape; //the shape of piece
 	public int[][] space; //which spaces are occupied by the shape
+	private double[][] control;
 	
 	public String getShape(){
 		return shape;
@@ -21,6 +22,7 @@ public class Piece {
 	
 	
 	public Piece(String s){
+		control = new double[7][3];
 		if (s.equals("l")){
 			shape = "l";
 			x = 3;
@@ -136,12 +138,12 @@ public class Piece {
 		double blue = avgColor[2];
 		
 		//if red is less than 45, it is probably an s, i or l
-		if(red < 45){
+		if(red < 50){
 			if(blue < 45){
 				System.out.println("probably an s");
 				return new Piece("s");
 			}
-			else if(green < 40){
+			else if(green < 38){
 				System.out.println("probably an l");
 				return new Piece("l");
 			}
@@ -170,5 +172,34 @@ public class Piece {
 				return new Piece("z");
 			}
 		}
+	}
+	
+	/**
+	 * control is the rgb profiles of all pieces and their order is l, i, s, 7, square, t, z
+	 * @param currImg rgb profile of nextPiece
+	 */
+	public void whichPiece(double[] currImg){
+		double[][] control = {{20.87777777777776, 31.915942028985462, 63.32512077294696},
+				{15.80338164251205, 49.170048309178796, 59.30966183574879},
+				{35.544927536231846, 57.486956521739025, 19.703864734299525},
+				{67.38743961352635, 39.93768115942031, 18.131400966183584},
+				{66.99661835748793, 55.07874396135265, 20.842028985507202},
+				{58.21111111111114, 23.185990338164274, 52.08067632850238},
+				{66.94685990338162, 21.842995169082137, 29.397584541062827}};
+
+		
+	}
+	
+	public void addColumnToControl(int column, double[] rgb){
+		control[column] = rgb;
+	}
+	
+	public double iDiff(double[] currImg){
+		double r = 15 - currImg[0];
+		double g = 49 - currImg[1];
+		double b = 59 - currImg[2];
+		double sum = r + g + b;
+		
+		return sum;
 	}
 }
