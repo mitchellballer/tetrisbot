@@ -12,7 +12,8 @@ public class runBot implements Runnable{
 		
 	private Well well = new Well();
 	private static boolean cont;
-	
+	private Piece nextP;
+	private Piece thisP;
 	
 	public static void main(){
 
@@ -21,7 +22,7 @@ public class runBot implements Runnable{
 		
 	}
 	
-	public static void evaluateNextPiece(){
+	public static Piece evaluateNextPiece(){
 		screenShot();
 		BufferedImage nextPieceImg = null;
 		//try to load screenshot
@@ -31,15 +32,17 @@ public class runBot implements Runnable{
 		}
 		
 		//nextPieceImg = nextPieceImg.getSubimage(840,420,45,45);
-		nextPieceImg = nextPieceImg.getSubimage(524, 450, 45, 45);
+		//nextPieceImg = nextPieceImg.getSubimage(524, 450, 45, 45);
+		nextPieceImg = nextPieceImg.getSubimage(815, 395, 45, 45);
 		//write cropped screenshot to new file called nextpieceimg.jpg
 		try {
 			ImageIO.write(nextPieceImg, "jpg", new File("nextPieceImg.jpg"));
 		} catch (IOException e) {
 		}
 		
-		Piece nextPiece = toPiece(nextPieceImg);
+		return 	toPiece(nextPieceImg);
 	}
+	
 	public static Piece toPiece(BufferedImage img){
 		BufferedImage var = null;
 		Piece currPiece = new Piece("");
@@ -137,14 +140,15 @@ public class runBot implements Runnable{
 	public void run() {
 		//click the start button
 		try {
-			click(370,598);
+			click(700,560);
 		} catch (AWTException e){
 		}
 		//wait for game to start
 		try {
-			TimeUnit.SECONDS.sleep(5);
+			TimeUnit.SECONDS.sleep(9);
 		} catch (InterruptedException e) {
 		}
+		start();
 		//while(cont){
 		
 		int count = 0;
@@ -156,7 +160,11 @@ public class runBot implements Runnable{
 		} catch (InterruptedException e) {
 		}
 		count ++;
-		}
+		}	
+	}
+	
+	//do a starting move before looping
+	public void start(){
 		
 	}
 	
@@ -229,9 +237,50 @@ public class runBot implements Runnable{
 		bot.keyRelease(KeyEvent.VK_NUMPAD8);
 		Thread.sleep(200);
 		well.drop(p, idealX, true);
-
-		
 	}
 	
+	public Piece FindFirstPiece(){
+		//control order is i,t,z,s,l,square,7
+		double [][] control;
+		BufferedImage bf = null;
+		control = new double[][]{{ 52.23099415204679, 179.2280701754384, 214.3976608187133 },{ 195.79824561403495, 71.03216374269006, 174.85964912280704 },{ 221.32748538011697, 69.79532163742695, 97.87134502923969 },{ 113.52631578947359, 196.15789473684202, 48.08771929824562 },{ 64.39766081871339, 109.15789473684208, 211.03801169590636 },{ 224.4152046783625, 186.92397660818725, 56.28947368421055 },{ 223.1140350877193, 134.05555555555566, 48.1549707602339 }};
+		try{
+			bf = ImageIO.read(new File("ss.jpg"));
+		} catch (IOException E) {
+		}
+		bf = bf.getSubimage(677, 699, 18, 18);
+		Piece temp = new Piece("");
+		double[] avg = temp.avgColor(bf);
+		double[] dif = new double[7];
+		for (int i = 0; i < 7; i++){
+			for (int j = 0; j < 3; j++){
+				dif[i] += Math.abs(avg[j] - control[i][j]);
+			}
+		}
+		int a = 0;
+		double min = dif[0];
+		for (int i = 1; i <7; i++){
+			if (dif[i] < min){
+				min = dif[i];
+				a = i;
+			}
+		}
+		if (a == 0)
+			return new Piece("i");
+		if (a == 0)
+			return new Piece("t");
+		if (a == 0)
+			return new Piece("z");
+		if (a == 0)
+			return new Piece("s");
+		if (a == 0)
+			return new Piece("l");
+		if (a == 0)
+			return new Piece("square");
+		if (a == 0)
+			return new Piece("7");
+		return null;
+		
+	}
 	
 }
