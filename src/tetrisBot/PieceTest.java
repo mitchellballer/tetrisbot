@@ -8,72 +8,77 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class PieceTest {
 
     @Test
     public void test() throws IOException {
+        int pixelX, pixelY;
+        //Mitchell's computer, tetris.exe
+        //different tests need to be written for jesse's computer
+        pixelX = 353;
+        pixelY = 446;
 
-
-        Piece testPiece = new Piece("nextPieceImg.jpg");
-        Piece lPiece = new Piece("l.jpg");
-        BufferedImage black = ImageIO.read(new File("black.jpg"));
+        Piece testPiece = new Piece("nextPieceImg.png");
+        //Piece lPiece = new Piece("l.jpg");
+        BufferedImage lk = ImageIO.read(new File("l.png"));
+        System.out.println(testPiece.breakDown(lk.getRGB(356, 446))[0]);
+        //BufferedImage black = ImageIO.read(new File("black.jpg"));
         double[] avgRgb = new double[3];
-        int[] rgb = testPiece.breakDown(black.getRGB(1,1));
-        avgRgb = testPiece.avgColor(black);
+        int[] rgb = testPiece.breakDown(lk.getRGB(pixelX,pixelY));
+        //avgRgb = testPiece.avgColor(black);
         //ensure breakDown correctly breaks down the rgb components of the black pixel
+        assertEquals(rgb[0], 173);
+        assertEquals(rgb[1], 173);
+        assertEquals(rgb[2], 8);
+        //assertEquals((int)avgRgb[0], 0);
+        //assertEquals((int)avgRgb[1], 0);
+        //assertEquals((int)avgRgb[2], 0);
+
+        BufferedImage five = ImageIO.read(new File("5.png"));
+        rgb = testPiece.breakDown(five.getRGB(pixelX, pixelY));
+        //ensure breakDown correctly breaks down the rgb components of the white pixel
         assertEquals(rgb[0], 0);
         assertEquals(rgb[1], 0);
+        assertEquals(rgb[2], 173);
+        //assertEquals((int)avgRgb[0], 254);
+        //assertEquals((int)avgRgb[1], 254);
+        //assertEquals((int)avgRgb[2], 254);
+
+        BufferedImage s = ImageIO.read(new File("s.png"));
+        rgb = testPiece.breakDown(s.getRGB(pixelX, pixelY));
+        //avgRgb = testPiece.avgColor(green);
+        assertEquals(rgb[0], 0);
+        assertEquals(rgb[1], 173);
         assertEquals(rgb[2], 0);
-        assertEquals((int)avgRgb[0], 0);
-        assertEquals((int)avgRgb[1], 0);
-        assertEquals((int)avgRgb[2], 0);
+        //assertEquals((int)avgRgb[0], 34);
+        //assertEquals((int)avgRgb[1], 176);
+        //assertEquals((int)avgRgb[2], 76);
 
-        BufferedImage white = ImageIO.read(new File("white.jpg"));
-        rgb = testPiece.breakDown(white.getRGB(1,1));
-        avgRgb = testPiece.avgColor(white);
-        //ensure breakDown correctly breaks down the rgb components of the white pixel
-        assertEquals(rgb[0], 255);
-        assertEquals(rgb[1], 255);
-        assertEquals(rgb[2], 255);
-        assertEquals((int)avgRgb[0], 254);
-        assertEquals((int)avgRgb[1], 254);
-        assertEquals((int)avgRgb[2], 254);
+        BufferedImage j = ImageIO.read(new File("j.png"));
+        rgb = testPiece.breakDown(j.getRGB(pixelX, pixelY));
+        //avgRgb = testPiece.avgColor(j);
+        assertEquals(rgb[0], 173);
+        assertEquals(rgb[1], 0);
+        assertEquals(rgb[2], 173);
+        //assertEquals((int)avgRgb[0], 253);
+        //assertEquals((int)avgRgb[1], 241);
+        //assertEquals((int)avgRgb[2], 0);
 
-        BufferedImage green = ImageIO.read(new File("green.jpg"));
-        rgb = testPiece.breakDown(green.getRGB(1, 1));
-        avgRgb = testPiece.avgColor(green);
-        assertEquals(rgb[0], 35);
-        assertEquals(rgb[1], 177);
-        assertEquals(rgb[2], 77);
-        assertEquals((int)avgRgb[0], 34);
-        assertEquals((int)avgRgb[1], 176);
-        assertEquals((int)avgRgb[2], 76);
-
-        BufferedImage yellow = ImageIO.read(new File("yellow.jpg"));
-        rgb = testPiece.breakDown(yellow.getRGB(1, 1));
-        avgRgb = testPiece.avgColor(yellow);
-        assertEquals(rgb[0], 254);
-        assertEquals(rgb[1], 242);
+        BufferedImage i = ImageIO.read(new File("i.png"));
+        rgb = testPiece.breakDown(i.getRGB(pixelX, pixelY));
+        //avgRgb = testPiece.avgColor(blue);
+        assertEquals(rgb[0], 173);
+        assertEquals(rgb[1], 0);
         assertEquals(rgb[2], 0);
-        assertEquals((int)avgRgb[0], 253);
-        assertEquals((int)avgRgb[1], 241);
-        assertEquals((int)avgRgb[2], 0);
-
-        BufferedImage blue = ImageIO.read(new File("blue.jpg"));
-        rgb = testPiece.breakDown(blue.getRGB(1, 1));
-        avgRgb = testPiece.avgColor(blue);
-        assertEquals(rgb[0], 63);
-        assertEquals(rgb[1], 71);
-        assertEquals(rgb[2], 204);
-        assertEquals((int)avgRgb[0], 62);
-        assertEquals((int)avgRgb[1], 70);
-        assertEquals((int)avgRgb[2], 203);
+        //assertEquals((int)avgRgb[0], 62);
+        //assertEquals((int)avgRgb[1], 70);
+        //assertEquals((int)avgRgb[2], 203);
 
 
-        BufferedImage l = ImageIO.read(new File("l.jpg"));
-        avgRgb = testPiece.avgColor(l);
+        /*
+        BufferedImage i = ImageIO.read(new File("i.png"));
+        avgRgb = testPiece.avgColor(i);
         System.out.println("l = " + avgRgb[0] + ", " + avgRgb[1] + ", " + avgRgb[2]);
         //testPiece.addColumnToControl(0, avgRgb);
         assertTrue("l".equals(testPiece.classify(avgRgb).getShape()));
@@ -108,6 +113,8 @@ public class PieceTest {
         avgRgb = testPiece.avgColor(z);
         System.out.println("z = " + avgRgb[0] + ", " + avgRgb[1] + ", " + avgRgb[2]);
         assertTrue("z".equals(testPiece.classify(avgRgb).getShape()));
+
+        */
     }
 
 }
